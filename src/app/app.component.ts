@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { WeatherService } from './weather.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,15 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'TeamsAppFrontend';
+
+export class AppComponent implements OnInit {
+  weather: any;
+
+  constructor(private weatherService: WeatherService) { }
+
+  ngOnInit(): void {
+    this.weatherService.getWeatherData().subscribe(data => {
+      this.weather = data;
+    });
+  }
 }
